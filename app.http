@@ -1,0 +1,27 @@
+POST http://localhost:4500/notebook
+Content-Type: application/json
+
+{
+    "noteTitle": "Note 1",
+    "noteContent":"This is the note content",
+    "createdAt": "23:59:59"
+}
+
+###
+GET http://localhost:4500/notebook
+
+###
+GET http://localhost:4500/notebook/3ceaa0ec-4c3f-4dc6-8a16-7c87f2385676
+
+### UPDATING PROJECT
+PUT http://localhost:4500/notebook/c72b968a-2de5-40ca-8ae5-cb63b57ab048
+Content-Type: application/json
+
+{
+    "noteTitle": "Note 1",
+    "noteContent":"This is the note content",
+    "createdAt": "23:59:59"
+}
+
+###
+DELETE http://localhost:4500/project/63b7ebfb-1968-46b4-9c66-640bedb8256d
