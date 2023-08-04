@@ -3,25 +3,25 @@ Content-Type: application/json
 
 {
     "noteTitle": "Note 1",
-    "noteContent":"This is the note content",
-    "createdAt": "23:59:59"
+    "noteContent": "This is the note content",
+    "createdAt": "2023-06-05 04:38:56.157"
 }
 
 ###
 GET http://localhost:4500/notebook
 
 ###
-GET http://localhost:4500/notebook/3ceaa0ec-4c3f-4dc6-8a16-7c87f2385676
+GET http://localhost:4500/notebook/1e69513a-d8ec-4ced-8fe2-f5201112245
 
 ### UPDATING PROJECT
-PUT http://localhost:4500/notebook/c72b968a-2de5-40ca-8ae5-cb63b57ab048
+PUT http://localhost:4500/notebook/c6f72868-bf02-44f2-860c-08f02f906b82
 Content-Type: application/json
 
 {
-    "noteTitle": "Note 1",
-    "noteContent":"This is the note content",
-    "createdAt": "23:59:59"
+    "noteTitle": "Note 1 ii",
+    "noteContent": "This is the note content",
+    "createdAt": "2023-06-05 04:38:56.157"
 }
 
 ###
-DELETE http://localhost:4500/project/63b7ebfb-1968-46b4-9c66-640bedb8256d
+DELETE http://localhost:4500/notebook/c6f72868-bf02-44f2-860c-08f02f906b82

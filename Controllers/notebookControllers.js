@@ -10,6 +10,10 @@ const createNote = async(req, res)=>{
 
         const {noteTitle, noteContent, createdAt} = req.body
 
+        if(!noteTitle || !noteContent || !createdAt) {
+            return res.json({Error: "Input all values"})
+        }
+
         const pool = await mssql.connect(sqlConfig)
 
         if(pool.connected){
@@ -25,7 +29,7 @@ const createNote = async(req, res)=>{
 
             if(result.rowsAffected == 1){
             return res.json({
-                message: "Project created Successfully",
+                message: "Note created Successfully",
             })  
             }else{
                 return res.json({message: "Creation failed"})
@@ -42,7 +46,7 @@ const getNotes = async(req, res)=>{
 
         const allnotes = (await pool.request().execute('getAllNotes')).recordset
 
-        res.json({notes: allnotes})
+        res.status(200).json({notes: allnotes})
     } catch (error) {
         return res.json({error})
     }
@@ -56,9 +60,15 @@ const getOneNote = async(req, res)=>{
 
         const note = (await pool.request().input('id', id).execute('getOnenote')).recordset
 
-        return res.json({
-            note: project
-        })
+        if(note.length > 0) {
+            return res.json({
+                note: note
+            })
+        } else {
+            return res.json({
+                error: "Note not found"
+            })
+        }
     } catch (error) {
         return res.json({error})
     }
@@ -76,19 +86,17 @@ const updateNote = async(req, res)=>{
         .input('id', mssql.VarChar, id)
         .input('noteTitle', mssql.VarChar, noteTitle)
         .input('noteContent', mssql.VarChar, noteContent)
-        .input('createdAt', mssql.Time, createdAt)
+        .input('createdAt', mssql.DateTime, createdAt)
 
         .execute('updateNote'));
 
-        console.log(result);
-
         if(result.rowsAffected == 1){
             res.json({
-                message: 'project updated successfully'
+                message: 'Note updated successfully'
             })
         }else{
             res.json({
-                message: 'project not found'
+                message: 'Note not found'
             })
         }
     } catch (error) {
@@ -108,11 +116,11 @@ const deleteNote = async (req, res)=>{
       
         if(result.rowsAffected == 1){
             res.json({
-                    message: 'Project deleted successfully'
+                    message: 'Note deleted successfully'
             })
         }else{
             res.json({
-                message: 'Project not found'
+                message: 'Note not found'
         })
         }
     } catch (error) {
